@@ -6,8 +6,8 @@ public class Game {
     private ArrayList<Card> players;
     private Deck deck;
 
-    public Game(){
-        this.numberOfPlayers = 2;
+    public Game(int numberOfPlayers){
+        this.numberOfPlayers = numberOfPlayers;
         this.players = new ArrayList<>();
         this.deck = new Deck();
         this.deck.populate();
@@ -33,14 +33,22 @@ public class Game {
     }
 
     public int checkWinner() {
-        int winner = 0;
-        int maxCard = 0;
-        for (int i = 1; i <= numberOfPlayers; i++) {
+        if (this.players.size() < 1) {return 0;}
+        int winner = 1;
+        Card maxCard = getPlayerCard(1);
+        System.out.println(getPlayerCard(1).getRank());
+        System.out.println(getPlayerCard(1).getSuit());
+        for (int i = 2; i <= numberOfPlayers; i++) {
             System.out.println(getPlayerCard(i).getRank());
             System.out.println(getPlayerCard(i).getSuit());
-            if (getPlayerCard(i).getRank().getValue() > maxCard) {
+            if (getPlayerCard(i).getRank().getValue() > maxCard.getRank().getValue()) {
                 winner = i;
-                maxCard = getPlayerCard(i).getRank().getValue();
+                maxCard = getPlayerCard(i);
+            } else if (getPlayerCard(i).getRank().getValue() == maxCard.getRank().getValue()) {
+                if (getPlayerCard(i).getSuit().getValue() > maxCard.getSuit().getValue()) {
+                    winner = i;
+                    maxCard = getPlayerCard(i);
+                }
             }
         }
         System.out.println(winner);

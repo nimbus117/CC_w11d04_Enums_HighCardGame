@@ -8,10 +8,12 @@ import static org.junit.Assert.assertNotNull;
 public class GameTest {
 
     Game game;
+    int numberOfPlayers;
 
     @Before
     public void before() {
-        game = new Game();
+        numberOfPlayers = 52;
+        game = new Game(numberOfPlayers);
     }
 
     @Test
@@ -33,7 +35,7 @@ public class GameTest {
     @Test
     public void dealCards(){
         game.dealCards();
-        assertEquals(50, game.countCardsLeftInDeck());
+        assertEquals(52 - numberOfPlayers, game.countCardsLeftInDeck());
         assertNotNull(game.getPlayerCard(1));
         assertNotNull(game.getPlayerCard(2));
     }
